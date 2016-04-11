@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.com.sinosoft</groupId>
+    <artifactId>usercenter-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>usercenter-util</artifactId>
+  <name>${project.artifactId}</name>
+  <url>http://maven.apache.org</url>
+
+  <profiles>
+    <profile>
+      <!-- dev profile -->
+      <id>dev</id>
+      <properties>
+        <log4j.log_level>DEBUG</log4j.log_level>
+        <!-- windows环境下的eclipse控制台默认编码为GBK -->
+        <log4j.console.encoding>GBK</log4j.console.encoding>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <!-- prd profile -->
+      <id>prd</id>
+      <properties>
+        <log4j.log_level>INFO</log4j.log_level>
+        <log4j.console.encoding>UTF-8</log4j.console.encoding>
+      </properties>
+    </profile>
+  </profiles>
+
+  <dependencies>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.com.sinosoft</groupId>
+    <artifactId>usercenter-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>usercenter-service</artifactId>
+  <name>${project.artifactId}</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <!-- 覆盖父节点属性，单独控制是否跳过测试 -->
+    <skipTests>false</skipTests>
+  </properties>
+
+  <dependencies>
+    <!-- usercenter jar start -->
+    <dependency>
+      <groupId>cn.com.sinosoft</groupId>
+      <artifactId>usercenter-dao</artifactId>
+    </dependency>
+    <!-- usercenter jar end -->
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+    </dependency>
+
+    <!-- for test start -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- for test end -->
+  </dependencies>
+</project>

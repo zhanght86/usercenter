@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+  xmlns:cache="http://www.springframework.org/schema/cache"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+  <!-- 开发环境使用JDBC -->
+  <bean id="${db-source-jdbc}" class="org.apache.commons.dbcp.BasicDataSource"
+    lazy-init="${jdbc.lazyinit}" destroy-method="close">
+    <property name="driverClassName" value="${jdbc.driverClassName}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="maxActive" value="${jdbc.maxActive}" />
+    <!--initialSize: 初始化连接 -->
+    <property name="initialSize" value="${jdbc.initialSize}" />
+    <!--maxIdle: 最大空闲连接 -->
+    <property name="maxIdle" value="${jdbc.maxIdle}" />
+    <!--minIdle: 最小空闲连接 -->
+    <property name="minIdle" value="${jdbc.initialSize}" />
+    <!-- 连接测试 -->
+    <property name="validationQuery">
+      <value>select 1 from dual</value>
+    </property>
+    <property name="testWhileIdle" value="true" />
+    <property name="testOnBorrow" value="false" />
+    <property name="testOnReturn" value="false" />
+  </bean>
+
+  <!-- 生产使用数据源 -->
+  <bean id="${db-source-jndi}" class="org.springframework.jndi.JndiObjectFactoryBean"
+    lazy-init="${dataSource.lazyinit}">
+    <property name="jndiName" value="${dataSource.jndiName}" />
+  </bean>
+
+  <!-- mybatis文件配置，扫描所有mapper文件 -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+    p:dataSource-ref="dataSourceTarget" p:configLocation="classpath:mybatis-config.xml"
+    p:mapperLocations="classpath*:cn/com/sinosoft/usercenter/mapper/*.xml" />
+
+  <!-- spring与mybatis整合配置，扫描所有dao -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+    p:basePackage="cn.com.sinosoft.usercenter.dao"
+    p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+
+</beans>

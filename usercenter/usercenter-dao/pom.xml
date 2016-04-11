@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.com.sinosoft</groupId>
+    <artifactId>usercenter-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>usercenter-dao</artifactId>
+  <name>${project.artifactId}</name>
+  <url>http://maven.apache.org</url>
+
+  <profiles>
+    <!-- 数据库配置profile start -->
+    <profile>
+      <!-- local dev profile -->
+      <id>local</id>
+      <properties>
+        <profiles.active>local</profiles.active>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <!-- dev profile -->
+      <id>dev</id>
+      <properties>
+        <profiles.active>dev</profiles.active>
+      </properties>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <!-- prd profile -->
+      <id>prd</id>
+      <properties>
+        <profiles.active>prd</profiles.active>
+      </properties>
+    </profile>
+    <!-- 数据库配置profile end -->
+
+    <!-- mybatis生成器控制 -->
+    <profile>
+      <id>my_ge</id>
+      <properties>
+        <!-- 数据库驱动jar 路径 -->
+        <drive.class.path>E:/maven/.m2/repository/com/oracle/ojdbc14/10.2.0.4.0/ojdbc14-10.2.0.4.0.jar</drive.class.path>
+        <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
+        <jdbc.url>jdbc:oracle:thin:@10.0.24.168:1521:wxlctest</jdbc.url>
+        <jdbc.username>abecs</jdbc.username>
+        <jdbc.password>abecs168</jdbc.password>
+        <!-- model生成路径 -->
+        <model.target.project>D:/work-农银/my2015/usercenter/usercenter-model/src/main/java</model.target.project>
+        <model.package>cn.com.sinosoft.usercenter.model</model.package>
+        <!-- dao生成路径 -->
+        <dao.target.project>src/main/java</dao.target.project>
+        <dao.package>cn.com.sinosoft.usercenter.dao</dao.package>
+        <!-- sqlMapper生成路径 -->
+        <sqlMapper.target.project>src/main/java</sqlMapper.target.project>
+        <sqlMapper.package>cn.com.sinosoft.usercenter.mapper</sqlMapper.package>
+      </properties>
+    </profile>
+    <!-- 生成到测试包下 -->
+    <profile>
+      <id>my_ge_test</id>
+      <properties>
+        <!-- 数据库驱动jar 路径 -->
+        <drive.class.path>E:/maven/.m2/repository/com/oracle/ojdbc14/10.2.0.4.0/ojdbc14-10.2.0.4.0.jar</drive.class.path>
+        <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
+        <jdbc.url>jdbc:oracle:thin:@10.0.24.168:1521:wxlctest</jdbc.url>
+        <jdbc.username>abecs</jdbc.username>
+        <jdbc.password>abecs168</jdbc.password>
+        <!-- model生成路径 -->
+        <model.target.project>D:/work-农银/my2015/usercenter/usercenter-model/src/test/java</model.target.project>
+        <model.package>cn.com.sinosoft.usercenter.model</model.package>
+        <!-- dao生成路径 -->
+        <dao.target.project>src/test/java</dao.target.project>
+        <dao.package>cn.com.sinosoft.usercenter.dao</dao.package>
+        <!-- sqlMapper生成路径 -->
+        <sqlMapper.target.project>src/test/java</sqlMapper.target.project>
+        <sqlMapper.package>cn.com.sinosoft.usercenter.mapper</sqlMapper.package>
+      </properties>
+    </profile>
+    <!-- 本地环境数据库生成到测试包下 -->
+    <profile>
+      <id>my_ge_local</id>
+      <properties>
+        <!-- 数据库驱动jar 路径 -->
+        <drive.class.path>E:/maven/.m2/repository/com/oracle/ojdbc14/10.2.0.4.0/ojdbc14-10.2.0.4.0.jar</drive.class.path>
+        <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
+        <jdbc.url>jdbc:oracle:thin:@127.0.0.1:1521:orcl</jdbc.url>
+        <jdbc.username>abecs</jdbc.username>
+        <jdbc.password>abecs</jdbc.password>
+        <!-- model生成路径 -->
+        <model.target.project>D:/work-农银/my2015/usercenter/usercenter-model/src/main/java</model.target.project>
+        <model.package>cn.com.sinosoft.usercenter.model</model.package>
+        <!-- dao生成路径 -->
+        <dao.target.project>src/test/java</dao.target.project>
+        <dao.package>cn.com.sinosoft.usercenter.dao</dao.package>
+        <!-- sqlMapper生成路径 -->
+        <sqlMapper.target.project>src/test/java</sqlMapper.target.project>
+        <sqlMapper.package>cn.com.sinosoft.usercenter.mapper</sqlMapper.package>
+      </properties>
+    </profile>
+  </profiles>
+
+  <properties>
+    <!-- 覆盖父节点属性，单独控制是否跳过测试 -->
+    <skipTests>true</skipTests>
+    <!--mybatis generator plugin setting -->
+    <plugin.mybatis.generator>1.3.1</plugin.mybatis.generator>
+    <mybatis.generator.version>1.3.2</mybatis.generator.version>
+    <mybatis.generator.generatorConfig.xml>${basedir}/src/test/resources/generatorConfig.xml</mybatis.generator.generatorConfig.xml>
+  </properties>
+
+  <dependencies>
+    <!-- usercenter start -->
+    <dependency>
+      <groupId>cn.com.sinosoft</groupId>
+      <artifactId>usercenter-util</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cn.com.sinosoft</groupId>
+      <artifactId>usercenter-model</artifactId>
+    </dependency>
+    <!-- usercenter end -->
+
+    <!-- spring start -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-oxm</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+    </dependency>
+    <!-- spring end -->
+
+    <!-- db driver -->
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc14</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+    </dependency>
+    <!-- mybatis start -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+    </dependency>
+    <!-- mybatis end -->
+
+    <!-- mybatis generator -->
+    <dependency>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-core</artifactId>
+      <version>${mybatis.generator.version}</version>
+      <type>jar</type>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- for test begin -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- for test end -->
+  </dependencies>
+
+  <build>
+    <!-- filter config -->
+    <filters>
+      <filter>src/main/filters/${profiles.active}/filter-${profiles.active}-db.properties</filter>
+    </filters>
+
+    <!-- plugins -->
+    <plugins>
+      <!-- Mybatis generator代码生成插件 配置 -->
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>${plugin.mybatis.generator}</version>
+        <configuration>
+          <configurationFile>${mybatis.generator.generatorConfig.xml}</configurationFile>
+          <overwrite>true</overwrite>
+          <verbose>true</verbose>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

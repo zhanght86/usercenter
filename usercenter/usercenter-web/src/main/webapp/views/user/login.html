@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+</head>
+<body>
+  <div>
+    <form action="">
+      <input type="text" id="username" name="user.customername"
+        value="名字"> <input type="button" value="登录" id="login">
+    </form>
+  </div>
+
+  <script src="../../resources/lib/jquery/jquery-1.12.2.min.js"></script>
+  <script src="../../resources/lib/jquery/jquery-migrate-1.2.1.min.js"></script>
+  <script>
+      +function() {
+        $("#login").click(function() {
+          $.ajax({
+            type : "POST",
+            url : "./loginsubmit.json",
+            data : {
+              username : $("#username").val()
+            },
+            dataType : "json",
+            success : function(data) {
+              console.log(data)
+              //console.log(data.flag)
+              //console.log(data.authUserInfo.customername)
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest)
+            }
+          })
+        })
+      }()
+    </script>
+</body>
+</html>

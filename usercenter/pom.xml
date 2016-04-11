@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- project info -->
+  <groupId>cn.com.sinosoft</groupId>
+  <artifactId>usercenter-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>${project.artifactId}</name>
+  <description>abchinalife usercenter</description>
+  <url />
+  <inceptionYear>2016</inceptionYear>
+
+  <!-- organization info -->
+  <organization>
+    <name>sinosoft</name>
+    <url>http://http://www.sinosoft.com.cn/</url>
+  </organization>
+
+  <!-- module info -->
+  <modules>
+    <module>usercenter-model</module>
+    <module>usercenter-util</module>
+    <module>usercenter-dao</module>
+    <module>usercenter-service</module>
+    <!-- 生产环境一块构建，开发不需要，直接与进行web工程的jetty插件即可 -->
+    <!--<module>usercenter-web</module> -->
+  </modules>
+
+  <!-- some properties -->
+  <properties>
+    <!-- project properties -->
+    <project.build.version>0.0.1-SNAPSHOT</project.build.version>
+    <project.build.sourceEncoding>${file_encoding}</project.build.sourceEncoding>
+    <project.build.locales>zh_CN</project.build.locales>
+    <project.build.jdk>1.6</project.build.jdk>
+    <!-- Common libs -->
+    <spring.version>4.2.5.RELEASE</spring.version>
+    <mybatis.version>3.3.1</mybatis.version>
+    <mybatis.spring.version>1.2.4</mybatis.spring.version>
+    <google.gson.version>2.6.2</google.gson.version>
+    <!-- db libs -->
+    <db.oracle.version>10.2.0.4.0</db.oracle.version>
+    <commons.dbcp.version>1.4</commons.dbcp.version>
+    <!-- apache libs -->
+    <httpclient.version>4.1.2</httpclient.version>
+    <shiro.version>1.2.4</shiro.version>
+    <!-- Log libs -->
+    <log4j.version>1.2.17</log4j.version>
+    <!-- Test libs -->
+    <skipTests>false</skipTests>
+    <junit.version>4.11</junit.version>
+    <!-- Build args -->
+    <skip_maven_deploy>true</skip_maven_deploy>
+
+    <!-- for maven compiler plugin -->
+    <maven_compiler_version>3.2</maven_compiler_version>
+    <file_encoding>UTF-8</file_encoding>
+  </properties>
+
+  <!-- dependencyManagement -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- junit -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- springframe start -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-oxm</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <!-- springframe end -->
+
+      <!-- shiro start -->
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-spring</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-ehcache</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-core</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-web</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+      <!-- shiro end -->
+
+      <!-- mybatis start -->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+        <version>${mybatis.spring.version}</version>
+      </dependency>
+      <!--mybatis end -->
+
+      <!-- log start -->
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <!-- log end -->
+
+      <!-- servlet api -->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.0.1</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- start apache -->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${httpclient.version}</version>
+      </dependency>
+
+      <!-- end apache -->
+
+      <!-- google -->
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>${google.gson.version}</version>
+      </dependency>
+
+      <!-- db driver begin -->
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>ojdbc14</artifactId>
+        <version>${db.oracle.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>${commons.dbcp.version}</version>
+      </dependency>
+      <!-- db driver end -->
+
+      <!-- usercenter jar start -->
+      <dependency>
+        <groupId>cn.com.sinosoft</groupId>
+        <artifactId>usercenter-util</artifactId>
+        <version>${project.build.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.com.sinosoft</groupId>
+        <artifactId>usercenter-model</artifactId>
+        <version>${project.build.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.com.sinosoft</groupId>
+        <artifactId>usercenter-dao</artifactId>
+        <version>${project.build.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.com.sinosoft</groupId>
+        <artifactId>usercenter-service</artifactId>
+        <version>${project.build.version}</version>
+      </dependency>
+      <!-- usercenter jar end -->
+
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- build config -->
+  <build>
+    <!-- main resources -->
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+          <include>**/*.xml</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.properties</include>
+          <include>**/*.xml</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <!-- test Resources -->
+    <testResources>
+      <testResource>
+        <directory>src/test/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+          <include>**/*.xml</include>
+        </includes>
+        <filtering>true</filtering>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+
+
+    <plugins>
+      <!-- compiler plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven_compiler_version}</version>
+        <configuration>
+          <!--fork: Allows running the compiler in a separate process. If 
+            false it uses the built in compiler, while if true it will use an executable.Default 
+            value is: false. -->
+          <!-- <fork>true</fork> -->
+          <!--optimize: Set to true to optimize the compiled code using the 
+            compiler's optimization methods.Default value is: false. -->
+          <!-- <optimize>true</optimize> -->
+          <source>${project.build.jdk}</source>
+          <target>${project.build.jdk}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <compilerArguments>
+            <!-- Set to true to show messages about what the compiler is 
+              doing.Default value is: false. -->
+            <verbose />
+          </compilerArguments>
+        </configuration>
+      </plugin>
+      <!-- test plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>${skipTests}</skipTests>
+        </configuration>
+      </plugin>
+      <!-- deploy plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>${skip_maven_deploy}</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <developers>
+    <developer>
+      <id>renlc</id>
+      <name>任立春</name>
+      <email>rlc0204@163.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+8</timezone>
+    </developer>
+  </developers>
+</project>

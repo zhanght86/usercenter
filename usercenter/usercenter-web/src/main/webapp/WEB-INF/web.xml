@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  id="WebApp_ID" version="3.0">
+
+  <!-- Spring start -->
+  <!-- 配置Spring配置文件路径 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value> 
+    classpath*:spring/applicationContext.xml,classpath*:spring/applicationContext-shiro.xml </param-value>
+  </context-param>
+  <!-- 配置Spring上下文监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 用户信息过滤器 -->
+  <!-- <filter> <filter-name>sessoinFilter</filter-name> <filter-class>cn.com.sinosoft.filter.SessionFilter</filter-class> 
+    </filter> <filter-mapping> <filter-name>sessoinFilter</filter-name> <url-pattern>/service/*</url-pattern> 
+    </filter-mapping> -->
+
+  <!-- 配置Spring字符编码过滤器 start -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- 配置Spring字符编码过滤器 end -->
+
+  <!-- shiro 安全过滤器 start -->
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>shiroFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- shiro 安全过滤器 end -->
+
+  <!-- 使用容器默认的servlet start -->
+  <!-- 配置静态资源访问 -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/resources/*</url-pattern>
+  </servlet-mapping>
+  <!-- 配置页面访问 -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/views/*</url-pattern>
+  </servlet-mapping>
+  <!-- 使用容器默认的servlet end -->
+
+  <!-- 禁止直接访问html、jsp页面 start -->
+  <!-- 禁止直接访问页面资源，所有的请求都需要经过controller -->
+  <filter>
+    <filter-name>pageFilter</filter-name>
+    <filter-class>cn.com.sinosoft.usercenter.web.filter.PageFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>pageFilter</filter-name>
+    <url-pattern>*.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>pageFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <!-- 禁止直接访问html、jsp页面 end -->
+
+  <!-- spring mvc config start -->
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath*:spring/spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <!-- 覆盖default servlet的/, springmvc servlet将处理原来处理静态资源的映射 -->
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <!-- spring mvc config end -->
+
+  <!-- URL重写filter start -->
+  <!-- 暂时未配置，预留 -->
+  <!-- 1:为了对搜索的友好,因为有些搜索不能抓取动态页面或是对动态抓取的页面没有静态页面高. 2:屏蔽内部的url结构. 3:美化url. -->
+  <!-- <filter> <filter-name>UrlRewriteFilter</filter-name> <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class> 
+    <init-param> <param-name>confReloadCheckInterval</param-name> <param-value>60</param-value> 
+    </init-param> <init-param> <param-name>logLevel</param-name> <param-value>DEBUG</param-value> 
+    </init-param> </filter> <filter-mapping> <filter-name>UrlRewriteFilter</filter-name> 
+    <url-pattern>/*</url-pattern> </filter-mapping> -->
+  <!-- URL重写filter end -->
+
+  <!-- 浏览器不支持put,delete等method,由该filter将/blog?_method=delete转换为标准的http delete方法 -->
+  <!-- RESTfull 风格method重写配置，预留 -->
+  <!-- <filter> <filter-name>HiddenHttpMethodFilter</filter-name> <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class> 
+    </filter> <filter-mapping> <filter-name>HiddenHttpMethodFilter</filter-name> 
+    <servlet-name>springmvc</servlet-name> </filter-mapping> -->
+
+
+  <!-- log4j start -->
+  <!-- 配置log4j配置文件路径 -->
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:log4j.properties</param-value>
+  </context-param>
+  <!-- 60s 检测日志配置 文件变化 -->
+  <context-param>
+    <param-name>log4jRefreshInterval</param-name>
+    <param-value>60000</param-value>
+  </context-param>
+  <!-- 配置Log4j监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  <!-- log4j end -->
+
+  <!-- session 超时配置 -->
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+
+  <!-- 常用页面配置 -->
+  <!-- 首页 此处不配置，由spring mvc配置，空配置不可删除 -->
+  <welcome-file-list>
+    <welcome-file> </welcome-file>
+  </welcome-file-list>
+  <!-- 出错页面定义 -->
+  <error-page>
+    <error-code>403</error-code>
+    <location>/403</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/500</location>
+  </error-page>
+  <error-page>
+    <error-code>503</error-code>
+    <location>/503</location>
+  </error-page>
+</web-app>
